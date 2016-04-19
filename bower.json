@@ -1,0 +1,29 @@
+{
+  "name": "octoblu-device-schema-transmogrifier",
+  "description": "Transmogrifies message and device schemas from version NULL to v1.0.0 for meshblu devices",
+  "main": [
+    "index.js"
+  ],
+  "dependencies": {
+    "lodash": "^4.11.1"
+  },
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "IoT",
+    "Meshblu",
+    "TRANSMOGRIFICATION"
+  ],
+  "authors": [
+    "Octoblu, Inc <bower@octoblu.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

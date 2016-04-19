@@ -1,6 +1,6 @@
 {
-  "name": "octoblu-schema-device-transmogrifier",
-  "version": "1.2.0",
+  "name": "octoblu-device-schema-transmogrifier",
+  "version": "1.3.0",
   "description": "Transmogrifies message and device schemas from version NULL to v1.0.0 for meshblu devices",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/octoblu/octoblu-schema-device-transmogrifier.git"
+    "url": "git+https://github.com/octoblu/octoblu-device-schema-transmogrifier.git"
   },
   "keywords": [
     "Iot",
@@ -18,9 +18,9 @@
   "author": "Octoblu, Inc <npm@octoblu.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/octoblu/octoblu-schema-device-transmogrifier/issues"
+    "url": "https://github.com/octoblu/octoblu-device-schema-transmogrifier/issues"
   },
-  "homepage": "https://github.com/octoblu/octoblu-schema-device-transmogrifier#readme",
+  "homepage": "https://github.com/octoblu/octoblu-device-schema-transmogrifier#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-subset": "^1.2.2",
