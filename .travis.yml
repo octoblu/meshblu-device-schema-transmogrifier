@@ -6,7 +6,7 @@ before_deploy:
 - npm install browserify coffeeify
 - mkdir -p deploy/octoblu-device-schema-transmogrifier/latest
 - mkdir -p deploy/octoblu-device-schema-transmogrifier/$TRAVIS_TAG
-- node_modules/.bin/browserify -s MeshbluDeviceSchemaTransmogrifier -t coffeeify src/transmogrifier.coffee > deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js
+- node_modules/.bin/browserify -s OctobluDeviceSchemaTransmogrifier -t coffeeify src/transmogrifier.coffee > deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js
 - gzip deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js
 - mv deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js.gz  deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js
 - cp deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js deploy/octoblu-device-schema-transmogrifier/$TRAVIS_TAG/octoblu-device-schema-transmogrifier.bundle.js
