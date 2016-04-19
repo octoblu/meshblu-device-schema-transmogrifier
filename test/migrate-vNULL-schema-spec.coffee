@@ -1,11 +1,11 @@
 _ = require 'lodash'
-MeshbluDeviceTransmogrifier = require '../'
+OctobluDeviceSchemaTransmogrifier = require '../'
 
 describe 'a device with data', ->
   beforeEach ->
     @device =
       other: true
-    @sut = new MeshbluDeviceTransmogrifier @device
+    @sut = new OctobluDeviceSchemaTransmogrifier @device
     @transmogrifiedDevice = @sut.transmogrify()
 
   it 'should preserve existing data', ->
@@ -17,7 +17,7 @@ describe 'a device with data', ->
 describe "when trying to transmogrify a device that doesn't exist", ->
   beforeEach ->
     try
-      new MeshbluDeviceTransmogrifier()
+      new OctobluDeviceSchemaTransmogrifier()
     catch e
       @error = e
 
@@ -32,7 +32,7 @@ describe 'migrating a v1 schema', ->
       schemas:
         version: '1.0.0'
 
-    @sut = new MeshbluDeviceTransmogrifier @device
+    @sut = new OctobluDeviceSchemaTransmogrifier @device
     @transmogrifiedDevice = @sut.transmogrify()
 
   it 'should do nothing', ->

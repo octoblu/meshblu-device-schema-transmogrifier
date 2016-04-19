@@ -1,17 +1,36 @@
 _ = require 'lodash'
-MeshbluDeviceTransmogrifier = require '../'
+OctobluDeviceSchemaTransmogrifier = require '../'
 
 describe 'migrating message schemas', ->
   context 'with an unknown version', ->
-    beforeEach ->
-      @device =
-        messageSchema: sup: 'g'
+    context 'a messageSchema with a single schema object', ->
+      beforeEach ->
+        @device =
+          messageSchema: sup: 'g'
 
-      @sut = new MeshbluDeviceTransmogrifier @device
-      @transmogrifiedDevice = @sut.transmogrify()
+        @sut = new OctobluDeviceSchemaTransmogrifier @device
+        @transmogrifiedDevice = @sut.transmogrify()
 
-    it 'should create the correct message schema array', ->
-      expect(@transmogrifiedDevice.schemas.messages).to.deep.contain sup: 'g'
+      it 'should create the correct message schema array', ->
+        expect(@transmogrifiedDevice.schemas.messages).to.deep.contain sup: 'g'
 
-    it 'should remove old message schema', ->
-      expect(@transmogrifiedDevice.messageSchema).not.to.exist
+      it 'should remove old message schema', ->
+        expect(@transmogrifiedDevice.messageSchema).not.to.exist
+
+    context 'a messageSchema with an array', ->
+      beforeEach ->
+        @messageSchema = [
+            {sup: 'g'}
+            {mechanical: 'animals'}
+          ]
+        @device = messageSchema: @messageSchema
+
+
+        @sut = new OctobluDeviceSchemaTransmogrifier @device
+        @transmogrifiedDevice = @sut.transmogrify()
+
+      it 'should create the correct message schema array', ->
+        expect(@transmogrifiedDevice.schemas.messages).to.deep.equal @messageSchema
+
+      it 'should remove old message schema', ->
+        expect(@transmogrifiedDevice.messageSchema).not.to.exist

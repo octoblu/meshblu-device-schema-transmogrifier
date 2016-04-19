@@ -1,5 +1,5 @@
 _ = require 'lodash'
-class MeshbluDeviceTransmogrifier
+class OctobluDeviceSchemaTransmogrifier
   constructor: (oldDevice) ->
     throw new Error('Someone tried to transmogrify an undefined device! Stop doing that.') unless oldDevice?
     @device = _.clone oldDevice
@@ -14,9 +14,10 @@ class MeshbluDeviceTransmogrifier
     return @device
 
   _migrateMessageSchema: =>
-    @device.schemas.messages ?= []
-    @device.schemas.messages.push @device.messageSchema
-
+    messageSchema = @device.messageSchema
     delete @device.messageSchema
+    @device.schemas.messages ?= []
+    return @device.schemas.messages = messageSchema if _.isArray messageSchema
+    @device.schemas.messages.push messageSchema
 
-module.exports = MeshbluDeviceTransmogrifier
+module.exports = OctobluDeviceSchemaTransmogrifier
