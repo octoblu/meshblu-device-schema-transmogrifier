@@ -1,7 +1,7 @@
-OctobluDeviceSchemaTransmogrifier = require '../'
-
 {beforeEach, context, describe, it} = global
 {expect} = require 'chai'
+
+OctobluDeviceSchemaTransmogrifier = require '../'
 
 describe 'migrating message schemas', ->
   context 'with an unknown version', ->
