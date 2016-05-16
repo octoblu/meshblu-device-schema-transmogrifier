@@ -1,24 +1,21 @@
 # This weirdness is to support octoblu/bower-octoblu-device-schema-transmogrifier
 module.exports = (_) =>
   class OctobluDeviceSchemaTransmogrifier
-    constructor: (oldDevice) ->
-      throw new Error('Someone tried to transmogrify an undefined device! Stop doing that.') unless oldDevice?
-      @device = _.clone oldDevice
-      @device.schemas = _.cloneDeep oldDevice.schemas
+    constructor: (@device) ->
+      throw new Error('Someone tried to transmogrify an undefined device! Stop doing that.') unless @device?
 
     transmogrify: =>
-      return @device if _.get(@device, 'schemas.version') == '1.0.0'
-      _.set @device, 'schemas.version', '1.0.0'
+      device = _.cloneDeep @device
+      return device if _.get(device, 'schemas.version') == '1.0.0'
 
-      @_migrateMessageSchema()
+      messageSchema = device.messageSchema
+      delete device.messageSchema
 
-      return @device
-
-    _migrateMessageSchema: =>
-      messageSchema = @device.messageSchema
-      delete @device.messageSchema
-      @device.schemas.message ?= []
-      return @device.schemas.message = messageSchema if _.isArray messageSchema
-      @device.schemas.message.push messageSchema
+      device.schemas = {
+        version: '1.0.0'
+        message:
+          default: messageSchema
+      }
+      return device
 
   return OctobluDeviceSchemaTransmogrifier

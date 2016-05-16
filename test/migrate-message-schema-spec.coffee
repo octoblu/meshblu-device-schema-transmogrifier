@@ -1,5 +1,7 @@
-_ = require 'lodash'
 OctobluDeviceSchemaTransmogrifier = require '../'
+
+{beforeEach, context, describe, it} = global
+{expect} = require 'chai'
 
 describe 'migrating message schemas', ->
   context 'with an unknown version', ->
@@ -12,25 +14,7 @@ describe 'migrating message schemas', ->
         @transmogrifiedDevice = @sut.transmogrify()
 
       it 'should create the correct message schema array', ->
-        expect(@transmogrifiedDevice.schemas.message).to.deep.contain sup: 'g'
-
-      it 'should remove old message schema', ->
-        expect(@transmogrifiedDevice.messageSchema).not.to.exist
-
-    context 'a messageSchema with an array', ->
-      beforeEach ->
-        @messageSchema = [
-            {sup: 'g'}
-            {mechanical: 'animals'}
-          ]
-        @device = messageSchema: @messageSchema
-
-
-        @sut = new OctobluDeviceSchemaTransmogrifier @device
-        @transmogrifiedDevice = @sut.transmogrify()
-
-      it 'should create the correct message schema array', ->
-        expect(@transmogrifiedDevice.schemas.message).to.deep.equal @messageSchema
+        expect(@transmogrifiedDevice.schemas.message.default).to.deep.equal sup: 'g'
 
       it 'should remove old message schema', ->
         expect(@transmogrifiedDevice.messageSchema).not.to.exist
