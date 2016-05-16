@@ -1,6 +1,6 @@
 {
   "name": "octoblu-device-schema-transmogrifier",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Transmogrifies message and device schemas from version NULL to v1.0.0 for meshblu devices",
   "main": "index.js",
   "scripts": {
@@ -35,5 +35,10 @@
   "dependencies": {
     "coffee-script": "^1.10.0",
     "lodash": "^4.11.1"
+  },
+  "browserify": {
+    "transform": [
+      "coffeeify"
+    ]
   }
 }
