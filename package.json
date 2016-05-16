@@ -1,6 +1,6 @@
 {
   "name": "octoblu-device-schema-transmogrifier",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Transmogrifies message and device schemas from version NULL to v1.0.0 for meshblu devices",
   "main": "index.js",
   "scripts": {

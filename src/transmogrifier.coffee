@@ -12,7 +12,7 @@ module.exports = (_) =>
       delete device.messageSchema
 
       device.schemas = {version: '1.0.0'}
-      _.set device, 'schemas.message.default', messageSchema
+      _.set device, 'schemas.message.default', messageSchema if messageSchema?
       return device
 
   return OctobluDeviceSchemaTransmogrifier
