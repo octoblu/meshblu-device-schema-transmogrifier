@@ -12,7 +12,7 @@ describe 'migrating message schemas', ->
         @transmogrifiedDevice = @sut.transmogrify()
 
       it 'should create the correct message schema array', ->
-        expect(@transmogrifiedDevice.schemas.messages).to.deep.contain sup: 'g'
+        expect(@transmogrifiedDevice.schemas.message).to.deep.contain sup: 'g'
 
       it 'should remove old message schema', ->
         expect(@transmogrifiedDevice.messageSchema).not.to.exist
@@ -30,7 +30,7 @@ describe 'migrating message schemas', ->
         @transmogrifiedDevice = @sut.transmogrify()
 
       it 'should create the correct message schema array', ->
-        expect(@transmogrifiedDevice.schemas.messages).to.deep.equal @messageSchema
+        expect(@transmogrifiedDevice.schemas.message).to.deep.equal @messageSchema
 
       it 'should remove old message schema', ->
         expect(@transmogrifiedDevice.messageSchema).not.to.exist

@@ -17,8 +17,8 @@ module.exports = (_) =>
     _migrateMessageSchema: =>
       messageSchema = @device.messageSchema
       delete @device.messageSchema
-      @device.schemas.messages ?= []
-      return @device.schemas.messages = messageSchema if _.isArray messageSchema
-      @device.schemas.messages.push messageSchema
+      @device.schemas.message ?= []
+      return @device.schemas.message = messageSchema if _.isArray messageSchema
+      @device.schemas.message.push messageSchema
 
   return OctobluDeviceSchemaTransmogrifier
