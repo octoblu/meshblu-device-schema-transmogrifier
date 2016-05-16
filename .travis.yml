@@ -2,16 +2,6 @@ language: node_js
 node_js:
 - '5'
 
-before_deploy:
-- npm install browserify coffeeify
-- mkdir -p deploy/octoblu-device-schema-transmogrifier/latest
-- mkdir -p deploy/octoblu-device-schema-transmogrifier/$TRAVIS_TAG
-- node_modules/.bin/browserify -s OctobluDeviceSchemaTransmogrifier -t coffeeify src/transmogrifier.coffee > deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js
-- gzip deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js
-- mv deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js.gz  deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js
-- cp deploy/octoblu-device-schema-transmogrifier/latest/octoblu-device-schema-transmogrifier.bundle.js deploy/octoblu-device-schema-transmogrifier/$TRAVIS_TAG/octoblu-device-schema-transmogrifier.bundle.js
-
-
 deploy:
   - provider: npm
     email: serveradmin@octoblu.com
@@ -20,17 +10,3 @@ deploy:
     on:
       tags: true
       branches: true
-
-  - provider: s3
-    access_key_id: AKIAJH2D5IPIRHYJT5IA
-    secret_access_key:
-      secure: Goj9sZijBhZf5dMDeB7JCHGChvVBODryv9WJ88xWNNOQJvTkORXSAbetNhFQuibLjNrIzT6WwK5U7cHUQ88MWxDPrkZHoGGw5p7Af7OWZ+Wo00T/Omtl0cwkhvGnEJvWy7G0TlTa2UIAj6XjowESjy7rbvMuY+tQypm/Q5L2zhY7iZWBKCdj1us0YVmTRjZJOzkQUyFSx1IzwTbi4dyINy21/P6FRXZ1RKzNCI3iP912AFHpBUonV6IPZ+9LToAWWfFdlidaX0nQnkzH1Q051deBk9nnM/SrtwEhqZf+kGHazBPH/fWEKHY7W65LaKC4m3tB2IRCN9898D/LoLBY8BF5iBxjPMdBD62nA5ptmrY1iC4G2K8B46aoCcX3l27e7YJcRVUCyzPxwC4RDnTKHl6D40nj2zlRCDfruMLA3XPpXckDU8aRZ/cXMYPrblbsMGAIL9p6l3dIxotTyf+dAg/ZinOqVNNsNCItuMLWmY+D8gfUz1My4VjZLwc1gx9K393eGVtG3bISGx6MzJFRHDVjt41iHQvDox9NaiLa66o2oET0+fOIaNNPd6NoOGSRU9gbJ/WfKtbtJwNo9y3TBQSXZc5VIfkuL0NmrSqG5sx/T+FsoUSynXzmkYquljtwbievea1zOKwwv/vAuHYApw5g757bi4a3f5ULlIzFA08=
-    bucket: octoblu-cdn
-    region: us-west-2
-    skip_cleanup: true
-    local-dir: deploy
-    detect_encoding: true
-    upload-dir: js
-    on:
-      tags: true
-      all_branches: true
