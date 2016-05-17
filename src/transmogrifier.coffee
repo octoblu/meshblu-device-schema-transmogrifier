@@ -5,25 +5,35 @@ module.exports = (_) =>
       throw new Error('Someone tried to transmogrify an undefined device! Stop doing that.') unless @device?
 
     transmogrify: =>
-      device = _.cloneDeep @device
-      return device if _.get(device, 'schemas.version') == '1.0.0'
+      return _.cloneDeep @device if _.get(@device, 'schemas.version') == '1.0.0'
 
-      device.schemas = {version: '1.0.0'}
-      @migrateMessageSchema device
-      @migrateOptionsSchema device
-      return device
+      device = @migratedSchemas @device
+      return _.omit device, 'messageSchema', 'messageFormSchema', 'optionsSchema'
 
-    migrateMessageSchema: (device) =>
-      { messageSchema } = device
-      return unless messageSchema?
-      delete device.messageSchema
-      _.set device, 'schemas.message.default', messageSchema
+    migratedSchemas: (device) =>
+      device = _.cloneDeep device
 
-    migrateOptionsSchema: (device) =>
-      { optionsSchema } = device
-      return unless optionsSchema?
-      delete device.optionsSchema
-      _.set device, 'schemas.configure.default.type', 'object'
-      _.set device, 'schemas.configure.default.properties.options', optionsSchema
+      _.assign device, {
+        schemas:
+          version: '1.0.0'
+          message:
+            default: _.assign(device.messageSchema, @_getFormMessageSchemaPortion(device))
+          configure:
+            default:
+              type: 'object'
+              properties:
+                options: device.optionsSchema
+          form:
+            message:
+              default:
+                angular: device.messageFormSchema
+      }
+
+    _getFormMessageSchemaPortion: (device) =>
+      return {} unless device.messageFormSchema
+      return {
+        formSchema:
+          angular: 'message.default.angular'
+      }
 
   return OctobluDeviceSchemaTransmogrifier
