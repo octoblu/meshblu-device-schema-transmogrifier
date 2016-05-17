@@ -8,11 +8,22 @@ module.exports = (_) =>
       device = _.cloneDeep @device
       return device if _.get(device, 'schemas.version') == '1.0.0'
 
-      messageSchema = device.messageSchema
-      delete device.messageSchema
-
       device.schemas = {version: '1.0.0'}
-      _.set device, 'schemas.message.default', messageSchema if messageSchema?
+      @migrateMessageSchema device
+      @migrateOptionsSchema device
       return device
+
+    migrateMessageSchema: (device) =>
+      { messageSchema } = device
+      return unless messageSchema?
+      delete device.messageSchema
+      _.set device, 'schemas.message.default', messageSchema
+
+    migrateOptionsSchema: (device) =>
+      { optionsSchema } = device
+      return unless optionsSchema?
+      delete device.optionsSchema
+      _.set device, 'schemas.configure.default.type', 'object'
+      _.set device, 'schemas.configure.default.properties.options', optionsSchema
 
   return OctobluDeviceSchemaTransmogrifier
