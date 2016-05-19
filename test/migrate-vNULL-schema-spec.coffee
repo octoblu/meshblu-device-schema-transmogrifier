@@ -18,6 +18,15 @@ describe 'vNull', ->
     it 'should set the version to 1.0.0', ->
       expect(@transmogrifiedDevice.schemas.version).to.equal '1.0.0'
 
+    it 'should not set the configure schema', ->
+      expect(@transmogrifiedDevice.schemas.configure).to.be.empty
+
+    it 'should not set the message schema', ->
+      expect(@transmogrifiedDevice.schemas.message).to.be.empty
+
+    it 'should not set the form schema', ->
+      expect(@transmogrifiedDevice.schemas.form).to.be.empty
+
   describe "when trying to transmogrify a device that doesn't exist", ->
     beforeEach ->
       try
