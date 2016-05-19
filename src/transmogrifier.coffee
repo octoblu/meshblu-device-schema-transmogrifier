@@ -16,17 +16,32 @@ module.exports = (_) =>
       _.assign device, {
         schemas:
           version: '1.0.0'
-          message:
-            default: _.assign(device.messageSchema, @_getFormMessageSchemaPortion(device))
-          configure:
-            default:
-              type: 'object'
-              properties:
-                options: device.optionsSchema
-          form:
-            message:
-              default:
-                angular: device.messageFormSchema
+          message:   @_getMessageSchema(device)
+          configure: @_getConfigureSchema(device)
+          form:      @_getFormSchema(device)
+      }
+
+    _getConfigureSchema: (device) =>
+      return {} if _.isEmpty device.optionsSchema
+      return {
+        default:
+          type: 'object'
+          properties:
+            options: device.optionsSchema
+      }
+
+    _getFormSchema: (device) =>
+      return {} if _.isEmpty device.messageFormSchema
+      return {
+        message:
+          default:
+            angular: device.messageFormSchema
+      }
+
+    _getMessageSchema: (device) =>
+      return {} if _.isEmpty device.messageSchema
+      return {
+        default: _.assign({}, device.messageSchema, @_getFormMessageSchemaPortion(device))
       }
 
     _getFormMessageSchemaPortion: (device) =>

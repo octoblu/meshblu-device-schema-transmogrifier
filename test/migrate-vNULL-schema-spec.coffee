@@ -1,5 +1,6 @@
 {beforeEach, describe, it} = global
 {expect} = require 'chai'
+_ = require 'lodash'
 
 OctobluDeviceSchemaTransmogrifier = require '../'
 
@@ -35,7 +36,7 @@ describe 'vNull', ->
         schemas:
           version: '1.0.0'
 
-      @sut = new OctobluDeviceSchemaTransmogrifier @device
+      @sut = new OctobluDeviceSchemaTransmogrifier _.cloneDeep(@device)
       @transmogrifiedDevice = @sut.transmogrify()
 
     it 'should do nothing', ->

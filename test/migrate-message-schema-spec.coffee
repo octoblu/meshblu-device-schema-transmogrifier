@@ -41,3 +41,17 @@ describe 'migrating message schemas', ->
 
       it 'should remove old message schema', ->
         expect(@transmogrifiedDevice.messageSchema).not.to.exist
+
+  context 'with no schema at all', ->
+    beforeEach ->
+      @device = {}
+      @sut = new OctobluDeviceSchemaTransmogrifier @device
+      @transmogrifiedDevice = @sut.transmogrify()
+
+    it 'should set an empty schema', ->
+      expect(@transmogrifiedDevice.schemas).to.deep.equal {
+        version: '1.0.0'
+        message: {}
+        configure: {}
+        form: {}
+      }
