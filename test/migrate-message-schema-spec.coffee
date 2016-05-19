@@ -24,7 +24,7 @@ describe 'migrating message schemas', ->
         expect(@transmogrifiedDevice.schemas.message).to.deep.equal
           default:
             type: 'object'
-            formSchema:
+            'x-form-schema':
               angular:
                 'message.default.angular'
             properties:

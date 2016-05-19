@@ -32,7 +32,7 @@ module.exports = (_) =>
     _getFormMessageSchemaPortion: (device) =>
       return {} unless device.messageFormSchema
       return {
-        formSchema:
+        'x-form-schema':
           angular: 'message.default.angular'
       }
 
