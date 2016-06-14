@@ -1,5 +1,6 @@
 {beforeEach, context, describe, it} = global
 {expect} = require 'chai'
+_ = require 'lodash'
 
 OctobluDeviceSchemaTransmogrifier = require '../'
 
@@ -54,4 +55,34 @@ describe 'migrating message schemas', ->
         message: {}
         configure: {}
         form: {}
+      }
+
+  describe 'migrating a v1.0.0 schema', ->
+    beforeEach ->
+      @device =
+        schemas:
+          version: '1.0.0'
+
+      @sut = new OctobluDeviceSchemaTransmogrifier _.cloneDeep(@device)
+      @transmogrifiedDevice = @sut.transmogrify()
+
+    it 'should do nothing', ->
+      expect(@transmogrifiedDevice).to.deep.equal {
+        schemas:
+          version: '1.0.0'
+      }
+
+  describe 'migrating a v2.0.0 schema', ->
+    beforeEach ->
+      @device =
+        schemas:
+          version: '2.0.0'
+
+      @sut = new OctobluDeviceSchemaTransmogrifier _.cloneDeep(@device)
+      @transmogrifiedDevice = @sut.transmogrify()
+
+    it 'should do nothing', ->
+      expect(@transmogrifiedDevice).to.deep.equal {
+        schemas:
+          version: '2.0.0'
       }

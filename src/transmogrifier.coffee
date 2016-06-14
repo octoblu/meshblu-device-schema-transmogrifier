@@ -6,6 +6,7 @@ module.exports = (_) =>
 
     transmogrify: =>
       return _.cloneDeep @device if _.get(@device, 'schemas.version') == '1.0.0'
+      return _.cloneDeep @device if _.get(@device, 'schemas.version') == '2.0.0'
 
       device = @migratedSchemas @device
       return _.omit device, 'messageSchema', 'messageFormSchema', 'optionsSchema'
